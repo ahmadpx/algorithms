@@ -1,0 +1,14 @@
+{
+  "name": "algorithms",
+  "version": "1.0.0",
+  "description": "Algorithms and Data structure in JS",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^2.0.5"
+  }
+}
