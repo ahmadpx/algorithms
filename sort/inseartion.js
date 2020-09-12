@@ -14,6 +14,8 @@ function insertionSort(arr) {
       if (i === j) continue;
       if (arr[pointer] < arr[j]) {
         swap(j, pointer);
+      } else {
+        break;
       }
       --pointer;
       console.log(`(i = ${arr[i]}`, `, j = ${arr[j]})`, "==>", arr);
