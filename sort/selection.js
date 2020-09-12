@@ -2,6 +2,8 @@
  * selection sort
  * @description
  *
+ * @todo: implement with for loop as it easier to explain
+ *
  * @param {Array} arr
  * @return {Array} sorted arr
  */
