@@ -2,6 +2,11 @@
  * insertion sort
  * @description
  *
+ * 1 good note:
+ * insertion sort is very important if you have almost sorted array
+ * this may be very useful if you are updating the array by adding new elements
+ * and you keep your array sorted after addition
+ *
  * @param {Array} arr
  * @return {Array} sorted arr
  */
