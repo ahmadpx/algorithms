@@ -1,19 +1,21 @@
+/**
+ * merge sort
+ * todo: implement iterative solution as well
+ * @param {Array} arr
+ * @return {Array} sorted array
+ */
 function mergeSort(arr) {
   if (arr.length === 1) return arr;
-  return mergeArrays(divide(arr).reverse().map(mergeSort)).flat(Infinity);
-}
 
-function divide(arr) {
   return [
     arr.slice(0, Math.floor(arr.length / 2)),
     arr.slice(Math.floor(arr.length / 2), arr.length),
-  ];
+  ]
+    .map(mergeSort)
+    .reduce((arr1, arr2) => mergeArrays(arr1, arr2), []);
 }
 
 function mergeArrays(arr1, arr2) {
-  !Array.isArray(arr1) && (arr1 = []);
-  !Array.isArray(arr2) && (arr2 = []);
-
   let mergedArray = [];
   let arr1Pointer = 0;
   let arr2Pointer = 0;
@@ -43,4 +45,6 @@ function mergeArrays(arr1, arr2) {
   return mergedArray;
 }
 
-console.log(mergeSort([6, 5, 4, 3, 2, 1]));
+console.log(
+  mergeSort(Array.apply(null, { length: 10 }).map(Function.call, Math.random))
+);
