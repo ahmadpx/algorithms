@@ -6,7 +6,7 @@
  */
 function mergeSort(arr) {
   if (arr.length === 1) return arr;
-
+  
   return [
     arr.slice(0, Math.floor(arr.length / 2)),
     arr.slice(Math.floor(arr.length / 2), arr.length),
