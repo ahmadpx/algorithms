@@ -331,13 +331,19 @@ describe("SingleLinkedList", () => {
       list.push(2);
       list.push(3);
       list.push(4);
+      list.push(5);
+      list.push(6);
+      list.push(7);
 
       list.reverse();
 
-      expect(list.head.val).toBe(4);
-      expect(list.head.next.val).toBe(3);
-      expect(list.head.next.next.val).toBe(2);
-      expect(list.head.next.next.next).toEqual(list.tail);
+      expect(list.head.val).toBe(7);
+      expect(list.head.next.val).toBe(6);
+      expect(list.head.next.next.val).toBe(5);
+      expect(list.head.next.next.next.val).toEqual(4);
+      expect(list.head.next.next.next.next.val).toEqual(3);
+      expect(list.head.next.next.next.next.next.val).toEqual(2);
+      expect(list.head.next.next.next.next.next.next).toEqual(list.tail);
       expect(list.tail.val).toBe(1);
       expect(list.tail.next).toBe(null);
     });

@@ -169,19 +169,17 @@ export class SinglyLinkedList {
   }
 
   reverse() {
-    let current = this.head;
+    let current = null;
     let loop = this.head;
-    let prev = null;
 
     while (loop) {
-      current = { next: prev, val: loop.val };
-      if (prev === null) {
-        this.tail = current;
+      if (current === null) {
+        this.tail = { next: null, val: loop.val };
       }
+      current = { next: current, val: loop.val };
       if (loop.next === null) {
         this.head = current;
       }
-      prev = current;
       loop = loop.next;
     }
 
