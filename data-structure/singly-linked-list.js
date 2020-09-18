@@ -1,17 +1,18 @@
-class Node {
-  constructor(val) {
-    this.val = val;
-    this.next = null;
-  }
-}
-
-export class SinglyLinkedList {
+/**
+ * Single linked list
+ */
+class SinglyLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
     this.length = 0;
   }
 
+  /**
+   * add item at tail (at the end of the list)
+   * @param {any} val
+   * @return {SinglyLinkedList}
+   */
   push(val) {
     const newNode = new Node(val);
     if (!this.head) {
@@ -27,6 +28,10 @@ export class SinglyLinkedList {
     return this;
   }
 
+  /**
+   * remove the tail (the last item of the list)
+   * @return {Item|void}
+   */
   pop() {
     if (!this.head) return;
 
@@ -53,6 +58,10 @@ export class SinglyLinkedList {
     return popped;
   }
 
+  /**
+   * remove the head (the first item of the list)
+   * @return {Item|void}
+   */
   shift() {
     if (!this.head) return;
     const removed = this.head;
@@ -76,6 +85,11 @@ export class SinglyLinkedList {
     return removed;
   }
 
+  /**
+   * add item at head (in the beginning of the list)
+   * @param {any} val
+   * @return {Item}
+   */
   unshift(val) {
     if (!this.head) {
       ++this.length;
@@ -86,15 +100,22 @@ export class SinglyLinkedList {
       this.head = new Node(val);
       this.head.next = this.tail;
       ++this.length;
-      return this;
+      return this.head;
     }
 
     ++this.length;
     const oldHead = this.head;
     this.head = new Node(val);
     this.head.next = oldHead;
+
+    return this.head;
   }
 
+  /**
+   * get item from the list
+   * @param {Number} index
+   * @return {Item|void}
+   */
   get(index) {
     if (typeof index !== "number") return;
     if (index < 0 || index >= this.length) return;
@@ -111,6 +132,12 @@ export class SinglyLinkedList {
     }
   }
 
+  /**
+   * set the value of an item
+   * @param {Number} index
+   * @param {any} val
+   * @return {Item|void}
+   */
   set(index, val) {
     if (typeof index !== "number") return;
     if (index < 0 || index >= this.length) return;
@@ -124,6 +151,12 @@ export class SinglyLinkedList {
     return foundNode;
   }
 
+  /**
+   * insert item to the list
+   * @param {Number} index
+   * @param {any} val
+   * @return {Item|void}
+   */
   insert(index, val) {
     if (typeof index !== "number") return;
     if (index < 0 || index > this.length) return;
@@ -149,6 +182,11 @@ export class SinglyLinkedList {
     }
   }
 
+  /**
+   * remove item from the list
+   * @param {Number} index
+   * @return {Item|void}
+   */
   remove(index) {
     if (typeof index !== "number") return;
     if (index < 0 || index >= this.length) return;
@@ -168,21 +206,51 @@ export class SinglyLinkedList {
     return removed;
   }
 
+  /**
+   * reverse the list
+   * @return {SinglyLinkedList}
+   */
   reverse() {
-    let current = null;
-    let loop = this.head;
+    let current = this.head;
+    this.head = this.tail;
+    this.tail = current;
+    let prev = null;
+    let next;
 
-    while (loop) {
-      if (current === null) {
-        this.tail = { next: null, val: loop.val };
-      }
-      current = { next: current, val: loop.val };
-      if (loop.next === null) {
-        this.head = current;
-      }
-      loop = loop.next;
+    for (let i = 0; i < this.length; i++) {
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
     }
 
     return this;
   }
+
+  /**
+   * log the list as an array
+   */
+  log() {
+    const arr = [];
+    let current = this.head;
+
+    while (current) {
+      arr.push(current);
+      current = current.next;
+    }
+
+    console.log(arr);
+  }
 }
+
+/**
+ * List Node
+ */
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+module.exports = { SinglyLinkedList };
