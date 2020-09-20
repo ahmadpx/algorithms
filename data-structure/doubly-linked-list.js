@@ -119,14 +119,26 @@ class DoublyLinkedList {
     if (index < 0 || index >= this.length) return;
     if (index === this.length - 1) return this.tail;
 
-    let current = this.head;
-    let i = 0;
-    while (current.next) {
-      if (index === i) {
-        return current;
+    if (this.length / 2 > index) {
+      let current = this.head;
+      let i = 0;
+      while (current.next) {
+        if (index === i) {
+          return current;
+        }
+        ++i;
+        current = current.next;
       }
-      ++i;
-      current = current.next;
+    } else {
+      let current = this.tail;
+      let i = this.length - 1;
+      while (current.prev) {
+        if (index === i) {
+          return current;
+        }
+        --i;
+        current = current.prev;
+      }
     }
   }
 

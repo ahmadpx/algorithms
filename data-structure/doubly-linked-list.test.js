@@ -180,11 +180,17 @@ describe("DoublyLinkedList", () => {
       list.push(1);
       list.push(2);
       list.push(3);
+      list.push(4);
+      list.push(5);
 
       expect(list.get(1).val).toBe(2);
       expect(list.get(1).next.val).toBe(3);
       expect(list.get(1).prev.val).toBe(1);
-      expect(list.length).toBe(3);
+  
+      expect(list.get(3).val).toBe(4);
+      expect(list.get(3).next.val).toBe(5);
+      expect(list.get(3).prev.val).toBe(3);
+      expect(list.length).toBe(5);
     });
 
     it("should return undefined if the item doesn't exist", function () {
