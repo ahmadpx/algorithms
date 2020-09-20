@@ -44,18 +44,11 @@ class DoublyLinkedList {
       return popped;
     }
 
-    let current = this.head;
-    let popped = null;
-    while (current.next) {
-      if (current.next === this.tail) {
-        popped = this.tail;
-        this.tail = current;
-        this.tail.next = null;
-        this.length -= 1;
-        break;
-      }
-      current = current.next;
-    }
+    let popped = this.tail;
+    this.tail = this.tail.prev;
+    this.tail.next = null;
+    --this.length;
+
     return popped;
   }
 
