@@ -4,7 +4,7 @@
   "description": "Algorithms and Data structure in JS",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watchAll"
   },
   "keywords": [],
   "author": "Ahmed Abdallah <ahmadpx@hotmail.com",

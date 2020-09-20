@@ -94,6 +94,7 @@ describe("DoublyLinkedList", () => {
       expect(list.head.prev).toBe(null);
       expect(list.tail.val).toBe(3);
       expect(list.tail.next).toBe(null);
+      expect(list.tail.prev).toBe(list.head);
       expect(list.length).toBe(2);
     });
 
@@ -116,7 +117,11 @@ describe("DoublyLinkedList", () => {
 
       expect(list.shift().val).toBe(1);
       expect(list.head.val).toBe(2);
+      expect(list.head.next).toBe(null);
+      expect(list.head.prev).toBe(null);
       expect(list.tail.val).toBe(2);
+      expect(list.tail.next).toBe(null);
+      expect(list.tail.prev).toBe(null);
       expect(list.length).toBe(1);
     });
   });
@@ -133,8 +138,10 @@ describe("DoublyLinkedList", () => {
 
       expect(list.head.val).toBe(4);
       expect(list.head.next.val).toBe(1);
+      expect(list.head.prev).toBe(null);
       expect(list.tail.val).toBe(3);
       expect(list.tail.next).toBe(null);
+      expect(list.tail.prev.val).toBe(2);
       expect(list.length).toBe(4);
     });
 
@@ -145,8 +152,8 @@ describe("DoublyLinkedList", () => {
 
       expect(list.head.val).toBe(4);
       expect(list.head.next).toBe(null);
-      expect(list.tail.val).toBe(4);
-      expect(list.tail.next).toBe(null);
+      expect(list.head.prev).toBe(null);
+      expect(list.tail).toEqual(list.head);
       expect(list.length).toBe(1);
     });
 
@@ -158,8 +165,10 @@ describe("DoublyLinkedList", () => {
 
       expect(list.head.val).toBe(4);
       expect(list.head.next).toEqual(list.tail);
+      expect(list.head.prev).toEqual(null);
       expect(list.tail.val).toBe(1);
       expect(list.tail.next).toBe(null);
+      expect(list.tail.prev).toEqual(list.head);
       expect(list.length).toBe(2);
     });
   });
@@ -174,6 +183,7 @@ describe("DoublyLinkedList", () => {
 
       expect(list.get(1).val).toBe(2);
       expect(list.get(1).next.val).toBe(3);
+      expect(list.get(1).prev.val).toBe(1);
       expect(list.length).toBe(3);
     });
 
@@ -232,6 +242,7 @@ describe("DoublyLinkedList", () => {
 
       expect(list.insert(0, 5).val).toBe(5);
       expect(list.head.val).toBe(5);
+      expect(list.head.prev).toBe(null);
       expect(list.head.next.val).toBe(1);
       expect(list.length).toBe(4);
     });
@@ -246,6 +257,7 @@ describe("DoublyLinkedList", () => {
       expect(list.insert(3, 5).val).toBe(5);
       expect(list.tail.val).toBe(5);
       expect(list.tail.next).toBe(null);
+      expect(list.tail.prev.val).toBe(3);
       expect(list.length).toBe(4);
     });
 
@@ -258,6 +270,8 @@ describe("DoublyLinkedList", () => {
 
       expect(list.insert(1, 5).val).toBe(5);
       expect(list.head.next.val).toBe(5);
+      expect(list.head.next.next.val).toBe(2);
+      expect(list.head.next.prev.val).toBe(1);
       expect(list.length).toBe(4);
 
       expect(list.insert(1, 6).next.val).toBe(5);
@@ -296,6 +310,7 @@ describe("DoublyLinkedList", () => {
       expect(list.remove(1).val).toBe(2);
       expect(list.head).toEqual(list.tail);
       expect(list.tail.next).toBe(null);
+      expect(list.tail.prev).toBe(null);
       expect(list.length).toBe(1);
     });
 
@@ -309,8 +324,10 @@ describe("DoublyLinkedList", () => {
       expect(list.remove(1).val).toBe(2);
       expect(list.head.val).toBe(1);
       expect(list.head.next).toEqual(list.tail);
+      expect(list.head.prev).toEqual(null);
       expect(list.tail.val).toEqual(3);
       expect(list.tail.next).toEqual(null);
+      expect(list.tail.prev).toEqual(list.head);
       expect(list.length).toBe(2);
     });
 
@@ -341,12 +358,20 @@ describe("DoublyLinkedList", () => {
 
       list.reverse();
 
+      expect(list.head.prev).toBe(null);
       expect(list.head.val).toBe(7);
       expect(list.head.next.val).toBe(6);
+      expect(list.head.next.prev.val).toBe(7);
+      
       expect(list.head.next.next.val).toBe(5);
+      expect(list.head.next.next.prev.val).toBe(6);
+      
       expect(list.head.next.next.next.val).toEqual(4);
       expect(list.head.next.next.next.next.val).toEqual(3);
+      expect(list.head.next.next.next.next.prev.val).toEqual(4);
+      
       expect(list.head.next.next.next.next.next.val).toEqual(2);
+      expect(list.head.next.next.next.next.next.prev.val).toEqual(3);
       expect(list.head.next.next.next.next.next.next).toEqual(list.tail);
       expect(list.tail.val).toBe(1);
       expect(list.tail.next).toBe(null);

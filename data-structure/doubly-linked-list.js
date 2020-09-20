@@ -76,11 +76,13 @@ class DoublyLinkedList {
 
     if (this.head.next === this.tail) {
       this.head = this.tail;
+      this.head.prev = null;
       --this.length;
       return removed;
     }
 
     this.head = this.head.next;
+    this.head.prev = null;
     --this.length;
 
     return removed;
@@ -94,12 +96,13 @@ class DoublyLinkedList {
   unshift(val) {
     if (!this.head) {
       ++this.length;
-      return this.push(val);
+      return this.push(val).head;
     }
 
     if (this.length === 1) {
       this.head = new Node(val);
       this.head.next = this.tail;
+      this.tail.prev = this.head;
       ++this.length;
       return this.head;
     }
@@ -108,6 +111,7 @@ class DoublyLinkedList {
     const oldHead = this.head;
     this.head = new Node(val);
     this.head.next = oldHead;
+    this.head.next.prev = this.head;
 
     return this.head;
   }
@@ -178,6 +182,7 @@ class DoublyLinkedList {
       const temp = prevNode.next;
       prevNode.next = new Node(val);
       prevNode.next.next = temp;
+      prevNode.next.prev = prevNode;
       ++this.length;
       return prevNode.next;
     }
@@ -202,6 +207,7 @@ class DoublyLinkedList {
     const prevNode = this.get(index - 1);
     const removed = prevNode.next;
     prevNode.next = prevNode.next.next;
+    prevNode.next.prev = prevNode;
     --this.length;
 
     return removed;
@@ -215,13 +221,11 @@ class DoublyLinkedList {
     let current = this.head;
     this.head = this.tail;
     this.tail = current;
-    let prev = null;
     let next;
 
     for (let i = 0; i < this.length; i++) {
       next = current.next;
-      current.next = prev;
-      prev = current;
+      [current.next, current.prev] = [current.prev, current.next];
       current = next;
     }
 
