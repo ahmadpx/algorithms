@@ -1,10 +1,10 @@
-import { SinglyLinkedList } from "./singly-linked-list";
+import { DoublyLinkedList } from "./doubly-linked-list";
 
-describe("SinglyLinkedList", () => {
+describe("DoublyLinkedList", () => {
   describe("new instance", () => {
     it("should be able to instantiate a new singlyLinkedList", function () {
-      const list = new SinglyLinkedList();
-      expect(list).toBeInstanceOf(SinglyLinkedList);
+      const list = new DoublyLinkedList();
+      expect(list).toBeInstanceOf(DoublyLinkedList);
       expect(list.head).toBe(null);
       expect(list.tail).toBe(null);
       expect(list.length).toBe(0);
@@ -13,34 +13,38 @@ describe("SinglyLinkedList", () => {
 
   describe("push", () => {
     it("should push to new list", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(5);
 
       expect(list.head.val).toBe(5);
       expect(list.head.next).toBe(null);
+      expect(list.head.prev).toBe(null);
       expect(list.tail.val).toBe(5);
       expect(list.tail.next).toBe(null);
+      expect(list.tail.prev).toBe(null);
       expect(list.length).toBe(1);
     });
 
     it("should push to a list with length", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(5);
       list.push(4);
 
       expect(list.head.val).toBe(5);
       expect(list.head.next).toEqual(list.tail);
+      expect(list.head.prev).toEqual(null);
       expect(list.tail.val).toBe(4);
       expect(list.tail.next).toBe(null);
+      expect(list.tail.prev).toBe(list.head);
       expect(list.length).toBe(2);
     });
   });
 
   describe("pop", () => {
     it("should pop the last item of the list", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -48,15 +52,15 @@ describe("SinglyLinkedList", () => {
 
       expect(list.pop().val).toBe(3);
       expect(list.head.val).toBe(1);
-      expect(list.head.next.val).toBe(2);
       expect(list.head.next).toBe(list.tail);
       expect(list.tail.val).toBe(2);
       expect(list.tail.next).toBe(null);
+      expect(list.tail.prev).toBe(list.head);
       expect(list.length).toBe(2);
     });
 
     it("should empty the list if the list is only one item", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
 
@@ -67,7 +71,7 @@ describe("SinglyLinkedList", () => {
     });
 
     it("should return undefined if nothing in the list", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       expect(list.pop()).toBeUndefined();
       expect(list.head).toBe(null);
@@ -78,7 +82,7 @@ describe("SinglyLinkedList", () => {
 
   describe("shift", () => {
     it("should remove the first element and return it", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -86,15 +90,15 @@ describe("SinglyLinkedList", () => {
 
       expect(list.shift().val).toBe(1);
       expect(list.head.val).toBe(2);
-      expect(list.head.next.val).toBe(3);
       expect(list.head.next).toBe(list.tail);
+      expect(list.head.prev).toBe(null);
       expect(list.tail.val).toBe(3);
       expect(list.tail.next).toBe(null);
       expect(list.length).toBe(2);
     });
 
     it("should empty the list if it's only one element", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
 
@@ -105,7 +109,7 @@ describe("SinglyLinkedList", () => {
     });
 
     it("should adjust the tail if the list is 2 elements", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -119,7 +123,7 @@ describe("SinglyLinkedList", () => {
 
   describe("unshift", () => {
     it("should add item in the beginning of the list (at head)", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -135,7 +139,7 @@ describe("SinglyLinkedList", () => {
     });
 
     it("should add item in an empty list", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.unshift(4);
 
@@ -147,7 +151,7 @@ describe("SinglyLinkedList", () => {
     });
 
     it("should add item in a list with one item only", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.unshift(4);
@@ -162,7 +166,7 @@ describe("SinglyLinkedList", () => {
 
   describe("get", () => {
     it("should return item with a specific index", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -174,7 +178,7 @@ describe("SinglyLinkedList", () => {
     });
 
     it("should return undefined if the item doesn't exist", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       expect(list.get(0)).toBeUndefined();
 
@@ -187,7 +191,7 @@ describe("SinglyLinkedList", () => {
 
   describe("set", () => {
     it("it should set item with a specific value and return it", () => {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -205,7 +209,7 @@ describe("SinglyLinkedList", () => {
     });
 
     it("it should return undefined if the item doesn't exist", () => {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -220,7 +224,7 @@ describe("SinglyLinkedList", () => {
 
   describe("insert", () => {
     it("should be able to insert at head", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -233,7 +237,7 @@ describe("SinglyLinkedList", () => {
     });
 
     it("should be able to insert at tail", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -246,7 +250,7 @@ describe("SinglyLinkedList", () => {
     });
 
     it("should insert in the middle", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -260,7 +264,7 @@ describe("SinglyLinkedList", () => {
     });
 
     it("should return undefined and do nothing if the index doesn't exist", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -273,7 +277,7 @@ describe("SinglyLinkedList", () => {
 
   describe("remove", () => {
     it("should empty the list if it has only one element", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
 
@@ -284,7 +288,7 @@ describe("SinglyLinkedList", () => {
     });
 
     it("should let the head and tail to be the same if the list have only two items and one removed", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -296,7 +300,7 @@ describe("SinglyLinkedList", () => {
     });
 
     it("should be able to remove an item at specific index", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -311,7 +315,7 @@ describe("SinglyLinkedList", () => {
     });
 
     it("should return undefined if the index doesn't exist", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);
@@ -325,7 +329,7 @@ describe("SinglyLinkedList", () => {
 
   describe("reverse", () => {
     it("should reverse the list in place", function () {
-      const list = new SinglyLinkedList();
+      const list = new DoublyLinkedList();
 
       list.push(1);
       list.push(2);

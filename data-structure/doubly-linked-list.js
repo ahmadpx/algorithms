@@ -1,7 +1,7 @@
 /**
  * Single linked list
  */
-class SinglyLinkedList {
+class DoublyLinkedList {
   constructor() {
     this.head = null;
     this.tail = null;
@@ -11,7 +11,7 @@ class SinglyLinkedList {
   /**
    * add item at tail (at the end of the list)
    * @param {*} val
-   * @return {SinglyLinkedList}
+   * @return {DoublyLinkedList}
    */
   push(val) {
     const newNode = new Node(val);
@@ -21,6 +21,7 @@ class SinglyLinkedList {
       this.length = 1;
     } else {
       this.tail.next = newNode;
+      this.tail.next.prev = this.tail;
       this.tail = newNode;
       ++this.length;
     }
@@ -208,7 +209,7 @@ class SinglyLinkedList {
 
   /**
    * reverse the list
-   * @return {SinglyLinkedList}
+   * @return {DoublyLinkedList}
    */
   reverse() {
     let current = this.head;
@@ -250,7 +251,8 @@ class Node {
   constructor(val) {
     this.val = val;
     this.next = null;
+    this.prev = null;
   }
 }
 
-module.exports = { SinglyLinkedList };
+module.exports = { DoublyLinkedList };
