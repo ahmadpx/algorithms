@@ -7,7 +7,7 @@
     "test:watch": "jest --watchAll"
   },
   "keywords": [],
-  "author": "Ahmed Abdallah <ahmadpx@hotmail.com",
+  "author": "Ahmed Abdallah <ahmadpx@hotmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.11.6",

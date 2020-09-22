@@ -1,9 +1,9 @@
 /**
- * traverse a binary search tree using depth first search
+ * pre order traverse a binary search tree using depth first search
  * @param {BinarySearchTree} tree
  * @return {Array} visited
  */
-export function depthFirstSearch(tree) {
+export function preOrderDFS(tree) {
   const visited = [];
 
   function traverse(node) {
@@ -11,6 +11,26 @@ export function depthFirstSearch(tree) {
     visited.push(node.val);
     traverse(node.left);
     traverse(node.right);
+  }
+
+  traverse(tree.root);
+
+  return visited;
+}
+
+/**
+ * post order traverse a binary search tree using depth first search
+ * @param {BinarySearchTree} tree
+ * @return {Array} visited
+ */
+export function postOrderDFS(tree) {
+  const visited = [];
+
+  function traverse(node) {
+    if (node === null) return;
+    traverse(node.left);
+    traverse(node.right);
+    visited.push(node.val);
   }
 
   traverse(tree.root);
