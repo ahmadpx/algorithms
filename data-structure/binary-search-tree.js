@@ -1,6 +1,6 @@
 /**
  * @class Binary Search Tree
- * @todo: pass a comparison function to have a dynamic data types
+ * todo: pass a comparison function to have a dynamic data types
  */
 class BinarySearchTree {
   constructor() {
