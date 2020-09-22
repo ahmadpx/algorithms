@@ -37,3 +37,23 @@ export function postOrderDFS(tree) {
 
   return visited;
 }
+
+/**
+ * in order traverse a binary search tree using depth first search
+ * @param {BinarySearchTree} tree
+ * @return {Array} visited
+ */
+export function inOrderDFS(tree) {
+  const visited = [];
+
+  function traverse(node) {
+    if (node === null) return;
+    traverse(node.left);
+    visited.push(node.val);
+    traverse(node.right);
+  }
+
+  traverse(tree.root);
+
+  return visited;
+}
