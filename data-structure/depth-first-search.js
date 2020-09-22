@@ -1,5 +1,3 @@
-import { Stack } from "./stack";
-
 /**
  * traverse a binary search tree using depth first search
  * @param {BinarySearchTree} tree
