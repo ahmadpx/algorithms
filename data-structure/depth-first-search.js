@@ -1,5 +1,6 @@
 /**
  * pre order traverse a binary search tree using depth first search
+ * use case: can be used to save the tree in a list and you can regenerate the tree from the same list again
  * @param {BinarySearchTree} tree
  * @return {Array} visited
  */
@@ -40,6 +41,7 @@ export function postOrderDFS(tree) {
 
 /**
  * in order traverse a binary search tree using depth first search
+ * use case: the returned list will be in order if the sorting is important
  * @param {BinarySearchTree} tree
  * @return {Array} visited
  */
