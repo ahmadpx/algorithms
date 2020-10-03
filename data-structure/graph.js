@@ -124,4 +124,24 @@ export class Graph {
 
     return visited;
   }
+
+  /**
+   * breadth first traversal
+   * @param {String} vertex
+   * @return {Array}
+   */
+  breadthFirstTraversal(vertex) {
+    const visited = [];
+    const queue = [vertex];
+
+    while (queue.length) {
+      const vertex = queue.shift();
+      if (!visited.includes(vertex)) {
+        visited.push(vertex);
+        queue.push(...this.adjacencyList[vertex]);
+      }
+    }
+
+    return visited;
+  }
 }

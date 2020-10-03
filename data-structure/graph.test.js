@@ -177,4 +177,55 @@ describe("Graph", () => {
       ]);
     });
   });
+
+  describe("breadthFirstTraversal", () => {
+    it("should return visited vertexes in depth first order", function () {
+      /*
+    {
+      "a": ["b", "c"],
+      "b": ["a", "d"],
+      "c": ["a", "e"],
+      "d": ["b", "e", "f"],
+      "e": ["c", "d", "f"],
+      "f": ["d", "e"],
+    }
+     */
+      const g = new Graph();
+      g.addVertex("a");
+      g.addVertex("b");
+      g.addVertex("c");
+      g.addVertex("d");
+      g.addVertex("e");
+      g.addVertex("f");
+
+      g.addEdge("a", "b");
+      g.addEdge("a", "c");
+
+      g.addEdge("b", "a");
+      g.addEdge("b", "d");
+
+      g.addEdge("c", "a");
+      g.addEdge("c", "e");
+
+      g.addEdge("d", "b");
+      g.addEdge("d", "e");
+      g.addEdge("d", "f");
+
+      g.addEdge("e", "c");
+      g.addEdge("e", "d");
+      g.addEdge("e", "f");
+
+      g.addEdge("f", "d");
+      g.addEdge("f", "e");
+
+      expect(g.breadthFirstTraversal("a")).toEqual([
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+      ]);
+    });
+  });
 });
