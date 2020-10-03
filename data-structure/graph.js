@@ -81,4 +81,47 @@ export class Graph {
 
     return this;
   }
+
+  /**
+   * recursive depth first traversal
+   * @param {String} vertex
+   * @return {Array}
+   */
+  recursiveDepthFirstTraversal(vertex) {
+    const visited = {};
+    const result = [];
+
+    const visit = (vertex) => {
+      if (!vertex) return;
+      if (!visited[vertex]) {
+        visited[vertex] = true;
+        result.push(vertex);
+        this.adjacencyList[vertex].forEach(visit);
+      }
+    };
+
+    visit(vertex);
+
+    return result;
+  }
+
+  /**
+   * iterative depth first traversal
+   * @param {String} vertex
+   * @return {Array}
+   */
+  iterativeDepthFirstTraversal(vertex) {
+    const visited = [];
+    const stack = [vertex];
+
+    while (stack.length) {
+      const vertex = stack.pop();
+      if (!visited.includes(vertex)) {
+        visited.push(vertex);
+        stack.push(...[...this.adjacencyList[vertex]].reverse());
+      }
+    }
+
+    return visited;
+  }
 }
