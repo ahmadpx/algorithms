@@ -52,35 +52,44 @@ function queensAttack(n, k, queenRow, queenCol, obstacles = []) {
   /**
    * diagonal scenarios
    */
-  let times = 0;
   // right down
   for (let row = queenRow + 1; row <= n; row++) {
-    let shouldBreak = false;
-    for (let col = queenCol + 1; col <= n; col++) {
+    let shouldBreakRightDown = false;
+    for (let col = queenCol + 1; col <= n && !shouldBreakRightDown; col++) {
       if (isObstacle(row, col) && isDownRightSquare(row, col)) {
-        shouldBreak = true;
+        shouldBreakRightDown = true;
         break;
       }
       if (isDownRightSquare(row, col)) {
         ++attackedSquares;
       }
     }
-    if (shouldBreak) break;
-  }
-  // left down
-  for (let row = queenRow + 1; row <= n; row++) {
-    let shouldBreak = false;
-    for (let col = queenCol - 1; col > 0; col--) {
+
+    let shouldBreakLeftDown = false;
+    for (let col = queenCol - 1; col > 0 && shouldBreakLeftDown; col--) {
       if (isObstacle(row, col) && isDownLeftSquare(row, col)) {
-        shouldBreak = true;
+        shouldBreakLeftDown = true;
         break;
       }
       if (isDownLeftSquare(row, col)) {
         ++attackedSquares;
       }
     }
-    if (shouldBreak) break;
   }
+  // left down
+  // for (let row = queenRow + 1; row <= n; row++) {
+  //   let shouldBreak = false;
+  //   for (let col = queenCol - 1; col > 0; col--) {
+  //     if (isObstacle(row, col) && isDownLeftSquare(row, col)) {
+  //       shouldBreak = true;
+  //       break;
+  //     }
+  //     if (isDownLeftSquare(row, col)) {
+  //       ++attackedSquares;
+  //     }
+  //   }
+  //   if (shouldBreak) break;
+  // }
   // right up
   for (let row = queenRow - 1; row > 0; row--) {
     let shouldBreak = false;
