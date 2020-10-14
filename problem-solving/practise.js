@@ -53,67 +53,61 @@ function queensAttack(n, k, queenRow, queenCol, obstacles = []) {
    * diagonal scenarios
    */
   // right down
-  for (let row = queenRow + 1; row <= n; row++) {
-    let shouldBreakRightDown = false;
-    for (let col = queenCol + 1; col <= n && !shouldBreakRightDown; col++) {
+  for (let row = queenRow + 1, lastCol = queenCol; row <= n; row++) {
+    let shouldBreak = false;
+    for (let col = lastCol + 1; col <= n; col++ && lastCol++) {
       if (isObstacle(row, col) && isDownRightSquare(row, col)) {
-        shouldBreakRightDown = true;
+        shouldBreak = true;
         break;
       }
       if (isDownRightSquare(row, col)) {
         ++attackedSquares;
+        break;
       }
     }
-
-    let shouldBreakLeftDown = false;
-    for (let col = queenCol - 1; col > 0 && shouldBreakLeftDown; col--) {
+    if (shouldBreak) break;
+  }
+  // left down
+  for (let row = queenRow + 1, lastCol = queenCol; row <= n; row++) {
+    let shouldBreak = false;
+    for (let col = lastCol - 1; col > 0; col-- && lastCol--) {
       if (isObstacle(row, col) && isDownLeftSquare(row, col)) {
-        shouldBreakLeftDown = true;
+        shouldBreak = true;
         break;
       }
       if (isDownLeftSquare(row, col)) {
         ++attackedSquares;
+        break;
       }
     }
+    if (shouldBreak) break;
   }
-  // left down
-  // for (let row = queenRow + 1; row <= n; row++) {
-  //   let shouldBreak = false;
-  //   for (let col = queenCol - 1; col > 0; col--) {
-  //     if (isObstacle(row, col) && isDownLeftSquare(row, col)) {
-  //       shouldBreak = true;
-  //       break;
-  //     }
-  //     if (isDownLeftSquare(row, col)) {
-  //       ++attackedSquares;
-  //     }
-  //   }
-  //   if (shouldBreak) break;
-  // }
   // right up
-  for (let row = queenRow - 1; row > 0; row--) {
+  for (let row = queenRow - 1, lastCol = queenCol; row > 0; row--) {
     let shouldBreak = false;
-    for (let col = queenCol + 1; col <= n; col++) {
+    for (let col = lastCol + 1; col <= n; col++ && lastCol++) {
       if (isObstacle(row, col) && isUpRightSquare(row, col)) {
         shouldBreak = true;
         break;
       }
       if (isUpRightSquare(row, col)) {
         ++attackedSquares;
+        break;
       }
     }
     if (shouldBreak) break;
   }
   // left up
-  for (let row = queenRow - 1; row > 0; row--) {
+  for (let row = queenRow - 1, lastCol = queenCol; row > 0; row--) {
     let shouldBreak = false;
-    for (let col = queenCol - 1; col > 0; col--) {
+    for (let col = lastCol - 1; col > 0; col-- && lastCol--) {
       if (isObstacle(row, col) && isUpLeftSquare(row, col)) {
         shouldBreak = true;
         break;
       }
       if (isUpLeftSquare(row, col)) {
         ++attackedSquares;
+        break;
       }
     }
     if (shouldBreak) break;
