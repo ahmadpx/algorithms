@@ -28,91 +28,109 @@ function queensAttack(n, k, r_q, c_q, obstacles = []) {
 
   let attackedSquares = 0;
 
-  // directions
-  const rightSquares = n - c_q;
-  const leftSquares = c_q - 1;
-  const upSquares = n - r_q;
-  const downSquares = r_q - 1;
-  // diagonals
-  const downLeftSquares = Math.min(r_q - 1, c_q - 1);
-  const downRightSquares = Math.min(r_q - 1, n - c_q);
-  const upLeftSquares = Math.min(n - r_q, c_q - 1);
-  const upRightSquares = Math.min(n - r_q, n - c_q);
+  const obstaclesMap = obstacles.reduce((acc, [row, col]) => {
+    acc[`${row}-${col}`] = true;
+    return acc;
+  }, {});
+  const isObstacle = (row, col) => !!obstaclesMap[`${row}-${col}`];
+  const chessboard = [];
 
-  attackedSquares += rightSquares + leftSquares + upSquares + downSquares;
-  attackedSquares +=
-    downLeftSquares + downRightSquares + upLeftSquares + upRightSquares;
+  for (let row = 1; row <= n; row++) {
+    for (let col = 1; col <= n; col++) {
+      if (isObstacle(row, col)) {
+        chessboard[row][col] = "OBSTACLE";
+      } else {
+        chessboard[row][col] = "ATTACK_SQUARE";
+      }
+    }
+  }
+    console.log(chessboard);
 
-  obstacles.forEach(([row, col]) => {
-    if (visitedObstacles[`${row}-${col}`]) return;
-
-    if (isUpSquare(row, col)) {
-      console.log(`isUpSquare(${row}, ${col})`);
-      for (let i = row; i <= n; i++) {
-        visitedObstacles[`${i}-${col}`] = true;
-      }
-      attackedSquares -= n - row + 1;
-      return;
-    }
-    if (isDownSquare(row, col)) {
-      console.log(`isDownSquare(${row}, ${col})`);
-      for (let i = row; i > 0; i--) {
-        visitedObstacles[`${i}-${col}`] = true;
-      }
-      attackedSquares -= row;
-      return;
-    }
-    if (isRightSquare(row, col)) {
-      console.log(`isRightSquare(${row}, ${col})`);
-      for (let i = col; i <= n; i++) {
-        visitedObstacles[`${row}-${i}`] = true;
-      }
-      attackedSquares -= n - col + 1;
-      return;
-    }
-    if (isLeftSquare(row, col)) {
-      console.log(`isLeftSquare(${row}, ${col})`);
-      for (let i = col; i > 0; i--) {
-        visitedObstacles[`${row}-${i}`] = true;
-      }
-      attackedSquares -= col;
-      return;
-    }
-    if (isDownLeftSquare(row, col)) {
-      console.log(`isDownLeftSquare(${row}, ${col})`);
-      for (let i = row, j = col; i > 0 && j > 0; i-- && j--) {
-        visitedObstacles[`${i}-${j}`] = true;
-      }
-      attackedSquares -= Math.min(row, col);
-      return;
-    }
-    if (isUpLeftSquare(row, col)) {
-      console.log(`isUpLeftSquare(${row}, ${col})`);
-      for (let i = row, j = col; i <= n && j > 0; i++ && j--) {
-        visitedObstacles[`${i}-${j}`] = true;
-      }
-      attackedSquares -= Math.min(n - row + 1, col);
-      return;
-    }
-    if (isUpRightSquare(row, col)) {
-      console.log(`isUpRightSquare(${row}, ${col})`);
-      for (let i = row, j = col; i <= n && j <= n; i++ && j++) {
-        visitedObstacles[`${i}-${j}`] = true;
-      }
-      attackedSquares -= Math.min(n - row + 1, n - col + 1);
-      return;
-    }
-    if (isDownRightSquare(row, col)) {
-      console.log(`isDownRightSquare(${row}, ${col})`);
-      for (let i = row, j = col; i > 0 && j <= n; i-- && j++) {
-        visitedObstacles[`${i}-${j}`] = true;
-      }
-      attackedSquares -= Math.min(row, n - col + 1);
-      return;
-    }
-  });
-
-  return attackedSquares;
+  // // directions
+  // const rightSquares = n - c_q;
+  // const leftSquares = c_q - 1;
+  // const upSquares = n - r_q;
+  // const downSquares = r_q - 1;
+  // // diagonals
+  // const downLeftSquares = Math.min(r_q - 1, c_q - 1);
+  // const downRightSquares = Math.min(r_q - 1, n - c_q);
+  // const upLeftSquares = Math.min(n - r_q, c_q - 1);
+  // const upRightSquares = Math.min(n - r_q, n - c_q);
+  //
+  // attackedSquares += rightSquares + leftSquares + upSquares + downSquares;
+  // attackedSquares +=
+  //   downLeftSquares + downRightSquares + upLeftSquares + upRightSquares;
+  //
+  // obstacles.forEach(([row, col]) => {
+  //   if (visitedObstacles[`${row}-${col}`]) return;
+  //
+  //   if (isUpSquare(row, col)) {
+  //     console.log(`isUpSquare(${row}, ${col})`);
+  //     for (let i = row; i <= n; i++) {
+  //       visitedObstacles[`${i}-${col}`] = true;
+  //     }
+  //     attackedSquares -= n - row + 1;
+  //     return;
+  //   }
+  //   if (isDownSquare(row, col)) {
+  //     console.log(`isDownSquare(${row}, ${col})`);
+  //     for (let i = row; i > 0; i--) {
+  //       visitedObstacles[`${i}-${col}`] = true;
+  //     }
+  //     attackedSquares -= row;
+  //     return;
+  //   }
+  //   if (isRightSquare(row, col)) {
+  //     console.log(`isRightSquare(${row}, ${col})`);
+  //     for (let i = col; i <= n; i++) {
+  //       visitedObstacles[`${row}-${i}`] = true;
+  //     }
+  //     attackedSquares -= n - col + 1;
+  //     return;
+  //   }
+  //   if (isLeftSquare(row, col)) {
+  //     console.log(`isLeftSquare(${row}, ${col})`);
+  //     for (let i = col; i > 0; i--) {
+  //       visitedObstacles[`${row}-${i}`] = true;
+  //     }
+  //     attackedSquares -= col;
+  //     return;
+  //   }
+  //   if (isDownLeftSquare(row, col)) {
+  //     console.log(`isDownLeftSquare(${row}, ${col})`);
+  //     for (let i = row, j = col; i > 0 && j > 0; i-- && j--) {
+  //       visitedObstacles[`${i}-${j}`] = true;
+  //     }
+  //     attackedSquares -= Math.min(row, col);
+  //     return;
+  //   }
+  //   if (isUpLeftSquare(row, col)) {
+  //     console.log(`isUpLeftSquare(${row}, ${col})`);
+  //     for (let i = row, j = col; i <= n && j > 0; i++ && j--) {
+  //       visitedObstacles[`${i}-${j}`] = true;
+  //     }
+  //     attackedSquares -= Math.min(n - row + 1, col);
+  //     return;
+  //   }
+  //   if (isUpRightSquare(row, col)) {
+  //     console.log(`isUpRightSquare(${row}, ${col})`);
+  //     for (let i = row, j = col; i <= n && j <= n; i++ && j++) {
+  //       visitedObstacles[`${i}-${j}`] = true;
+  //     }
+  //     attackedSquares -= Math.min(n - row + 1, n - col + 1);
+  //     return;
+  //   }
+  //   if (isDownRightSquare(row, col)) {
+  //     console.log(`isDownRightSquare(${row}, ${col})`);
+  //     for (let i = row, j = col; i > 0 && j <= n; i-- && j++) {
+  //       visitedObstacles[`${i}-${j}`] = true;
+  //     }
+  //     attackedSquares -= Math.min(row, n - col + 1);
+  //     return;
+  //   }
+  // });
+  //
+  // return attackedSquares;
 }
 
 console.log(queensAttack(4, 0, 4, 4)); // 9
