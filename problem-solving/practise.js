@@ -15,26 +15,30 @@ function organizingContainers(containers) {
   );
   let possibility = "Possible";
 
-  for (let i = 0; i < containersBalls.length; i++) {
-    const container = containersBalls[i];
-    for (let j = 0; j < containersBalls.length; j++) {
+  for (let i = 0; i < containers.length; i++) {
+    const container = containers[i];
+    for (let j = 0; j < containers.length; j++) {
       if (i === j) continue;
-      const comparedContainer = containersBalls[j];
-      container.forEach((containerBallsArr, containerType) => {
-        if (containerType === i) return;
-        while (comparedContainer[i].length && containerBallsArr.length) {
-          container[i].push(comparedContainer[i].pop());
-          comparedContainer[containerType].push(containerBallsArr.pop());
+      const comparedContainer = containers[j];
+      for (let k = 0; k < container.length; k++) {
+        if (k === i || container[k] === 0) continue;
+        while (comparedContainer[i] > 0) {
+          ++container[i];
+          --comparedContainer[i];
+          ++comparedContainer[j];
+          --container[k];
         }
-      });
+      }
     }
-    if (
-      container[i].length !== containers[i].reduce((sum, ball) => sum + ball, 0)
-    ) {
-      possibility = "Impossible";
-      break;
-    }
+    // if (
+    //   container[i] !== containers[i].reduce((sum, ball) => sum + ball, 0)
+    // ) {
+    //   possibility = "Impossible";
+    //   break;
+    // }
   }
+  
+  return containers;
 
   return possibility;
 }
