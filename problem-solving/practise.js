@@ -10,9 +10,6 @@
  * @return {String<'Possible'|'Impossible'>}
  */
 function organizingContainers(containers) {
-  const containersBalls = containers.map((container) =>
-    container.map((balls, type) => new Array(balls).fill(type))
-  );
   let possibility = "Possible";
 
   for (let i = 0; i < containers.length; i++) {
@@ -22,26 +19,58 @@ function organizingContainers(containers) {
       const comparedContainer = containers[j];
       for (let k = 0; k < container.length; k++) {
         if (k === i || container[k] === 0) continue;
-        while (comparedContainer[i] > 0) {
+        while (comparedContainer[i] > 0 && container[k] > 0) {
+          // fill container type
           ++container[i];
           --comparedContainer[i];
-          ++comparedContainer[j];
+          // swap equivalent balls taken by container
+          ++comparedContainer[k];
           --container[k];
+        console.log({ container, comparedContainer });
         }
       }
+      console.log("==");
     }
-    // if (
-    //   container[i] !== containers[i].reduce((sum, ball) => sum + ball, 0)
-    // ) {
-    //   possibility = "Impossible";
-    //   break;
-    // }
+    if (container[i] !== containers[i].reduce((sum, ball) => sum + ball, 0)) {
+      possibility = "Impossible";
+      break;
+    }
   }
-  
+
   return containers;
 
   return possibility;
 }
+
+console.log(
+  organizingContainers([
+    [1, 3, 1],
+    [2, 1, 2],
+    [3, 3, 3],
+  ])
+); // Impossible
+
+// console.log(
+//   organizingContainers([
+//     [0, 2, 1],
+//     [1, 1, 1],
+//     [2, 0, 0],
+//   ])
+// ); // Possible
+//
+// console.log(
+//   organizingContainers([
+//     [1, 1],
+//     [1, 1],
+//   ])
+// ); // Possible
+//
+// console.log(
+//   organizingContainers([
+//     [0, 2],
+//     [1, 1],
+//   ])
+// ); // Impossible
 
 // console.log( // Possible
 //   organizingContainers([
@@ -146,33 +175,3 @@ function organizingContainers(containers) {
 //     ],
 //   ])
 // );
-
-console.log(
-  organizingContainers([
-    [1, 3, 1],
-    [2, 1, 2],
-    [3, 3, 3],
-  ])
-); // Impossible
-
-console.log(
-  organizingContainers([
-    [0, 2, 1],
-    [1, 1, 1],
-    [2, 0, 0],
-  ])
-); // Possible
-
-console.log(
-  organizingContainers([
-    [1, 1],
-    [1, 1],
-  ])
-); // Possible
-
-console.log(
-  organizingContainers([
-    [0, 2],
-    [1, 1],
-  ])
-); // Impossible
