@@ -28,6 +28,7 @@ function organizingContainers(containers) {
         comparedContainer[i] -= ballsToReplace;
         comparedContainer[k] += ballsToReplace;
         container[k] -= ballsToReplace;
+        console.log('ballsToReplace', ballsToReplace);
         if (takeAll) break;
       }
     }
