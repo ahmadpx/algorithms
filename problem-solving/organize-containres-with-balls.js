@@ -11,75 +11,57 @@
  */
 function organizingContainers(containers) {
   let possibility = "Possible";
-  const containersCount = containers.map((container) =>
-    container.reduce((sum, ball) => sum + ball, 0)
-  );
 
-  for (let i = 0; i < containers.length; i++) {
-    const container = containers[i];
-    for (let j = 0; j < containers.length; j++) {
-      if (i === j) continue;
-      const comparedContainer = containers[j];
-      for (let k = 0; k < container.length; k++) {
-        if (k === i || container[k] === 0) continue;
-        const takeAll = container[k] >= comparedContainer[i];
-        const ballsToReplace = takeAll ? comparedContainer[i] : container[k];
-        container[i] += ballsToReplace;
-        comparedContainer[i] -= ballsToReplace;
-        comparedContainer[k] += ballsToReplace;
-        container[k] -= ballsToReplace;
-        console.log('ballsToReplace', ballsToReplace);
-        if (takeAll) break;
-      }
+  const containersCounts = containers
+    .map((c) => c.reduce((sum, balls) => sum + balls, 0))
+    .sort();
+  const ballsTypesCounts = containers
+    .reduce((typesCounts, container, type) => {
+      if (!typesCounts[type]) typesCounts[type] = 0;
+      containers.forEach((container) => (typesCounts[type] += container[type]));
+      return typesCounts;
+    }, [])
+    .sort();
+
+  for (let i = 0; i < containersCounts.length; i++) {
+    if (containersCounts[i] !== ballsTypesCounts[i]) {
+      possibility = "Impossible";
+      break;
     }
-    // if (container[i] !== containerCount) {
-    //   possibility = "Impossible";
-    //   break;
-    // }
   }
-  
-  // return containers;
-
-  return containers.some(
-    (container, idx) => container[idx] !== containersCount[idx]
-  )
-    ? "Impossible"
-    : "Possible";
-
-  // return containers;
 
   return possibility;
 }
 
-// console.log(
-//   organizingContainers([
-//     [1, 3, 1],
-//     [2, 1, 2],
-//     [3, 3, 3],
-//   ])
-// ); // Impossible
-//
-// console.log(
-//   organizingContainers([
-//     [0, 2, 1],
-//     [1, 1, 1],
-//     [2, 0, 0],
-//   ])
-// ); // Possible
-//
-// console.log(
-//   organizingContainers([
-//     [1, 1],
-//     [1, 1],
-//   ])
-// ); // Possible
-//
-// console.log(
-//   organizingContainers([
-//     [0, 2],
-//     [1, 1],
-//   ])
-// ); // Impossible
+console.log(
+  organizingContainers([
+    [1, 3, 1],
+    [2, 1, 2],
+    [3, 3, 3],
+  ])
+); // Impossible
+
+console.log(
+  organizingContainers([
+    [0, 2, 1],
+    [1, 1, 1],
+    [2, 0, 0],
+  ])
+); // Possible
+
+console.log(
+  organizingContainers([
+    [1, 1],
+    [1, 1],
+  ])
+); // Possible
+
+console.log(
+  organizingContainers([
+    [0, 2],
+    [1, 1],
+  ])
+); // Impossible
 
 console.log(
   // Possible
