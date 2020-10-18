@@ -14,6 +14,13 @@ function bomberMan(n, grid) {
     if (row < grid.length - 1) grid[row + 1][col] = ".";
     if (row > 0) grid[row - 1][col] = ".";
   };
+  const plant = () => {
+    for (let row = 0; row < grid.length; row++) {
+      for (let col = 0; col < grid[row].length; col++) {
+        grid[row][col] = "O";
+      }
+    }
+  };
   const getCurrentPlantedBombs = (plant = false) => {
     let currentBombs = [];
     for (let row = 0; row < grid.length; row++) {
@@ -31,14 +38,11 @@ function bomberMan(n, grid) {
 
   let seconds = 3;
   while (seconds <= n) {
-    if (isBlastingTime(seconds)) {
-      currentBombs.forEach(detonate);
-      currentBombs = getCurrentPlantedBombs(
-        isPlantingTime(seconds + 1) && seconds + 1 < n
-      );
-      console.log(currentBombs);
-    }
-    ++seconds;
+    currentBombs.forEach(detonate);
+    currentBombs = getCurrentPlantedBombs(
+      isPlantingTime(seconds + 1) && seconds + 1 <= n
+    );
+    seconds = seconds + 2;
   }
 
   grid.forEach((r) => console.log(JSON.stringify(r)));
