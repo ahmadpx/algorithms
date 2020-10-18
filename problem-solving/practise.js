@@ -5,8 +5,6 @@ function bomberMan(n, grid) {
   if (n < 2) return grid;
   let currentBombs = {};
   const isBomb = (row, col) => grid[row][col] === "O";
-  const isPlantingTime = (seconds) => seconds % 2 === 0;
-  const isBlastingTime = (seconds) => seconds % 2 === 1;
   const detonate = ([row, col]) => {
     grid[row][col] = ".";
     if (col > 0) grid[row][col - 1] = ".";
@@ -25,6 +23,8 @@ function bomberMan(n, grid) {
     let newBombs = {};
     for (let row = 0; row < grid.length; row++) {
       for (let col = 0; col < grid[row].length; col++) {
+        // if one of the current bombs detonate && add it and its surroundings to blast area
+        // if it's not in one of the blast areas plant
         if (isBomb(row, col)) {
           newBombs[`${row}-${col}`] = [row, col];
         }
@@ -39,9 +39,7 @@ function bomberMan(n, grid) {
   let seconds = 3;
   while (seconds <= n) {
     Object.values(currentBombs).forEach(detonate);
-    currentBombs = getCurrentPlantedBombs(
-      isPlantingTime(seconds + 1) && seconds + 1 <= n
-    );
+    currentBombs = getCurrentPlantedBombs(seconds + 1 <= n);
     seconds = seconds + 2;
   }
 
