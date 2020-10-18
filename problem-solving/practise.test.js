@@ -47,9 +47,7 @@ function bomberMan(n, grid) {
     return currentBombs;
   };
 
-  currentBombs = getCurrentPlantedBombs();
-
-  plant();
+  currentBombs = getCurrentPlantedBombs(true);
 
   let seconds = 2;
   while (seconds <= n) {
