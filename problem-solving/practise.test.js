@@ -14,26 +14,6 @@ function bomberMan(n, grid) {
     if (row < grid.length - 1) grid[row + 1][col] = ".";
     if (row > 0) grid[row - 1][col] = ".";
   };
-  const blast = (row, col) => {
-    const blastMap = {
-      [`${row}-${col}`]: true,
-    };
-
-    grid[row][col] = ".";
-    if (col > 0) blastMap[`${row}-${col - 1}`] = true;
-    if (col < grid[0].length - 1) blastMap[`${row}-${col + 1}`] = true;
-    if (row < grid.length - 1) blastMap[`${row + 1}-${col}`] = true;
-    if (row > 0) blastMap[`${row - 1}-${col}`] = true;
-
-    return blastMap;
-  };
-  const plant = () => {
-    for (let row = 0; row < grid.length; row++) {
-      for (let col = 0; col < grid[row].length; col++) {
-        grid[row][col] = "O";
-      }
-    }
-  };
   const getCurrentPlantedBombs = (plant = false) => {
     let currentBombs = [];
     for (let row = 0; row < grid.length; row++) {
