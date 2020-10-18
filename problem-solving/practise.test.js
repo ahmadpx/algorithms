@@ -3,7 +3,7 @@ function bomberMan(n, grid) {
   // 2  5
   // 4  7
   if (n < 2) return grid;
-  let currentBombs = [];
+  let currentBombs = {};
   const isBomb = (row, col) => grid[row][col] === "O";
   const isPlantingTime = (seconds) => seconds % 2 === 0;
   const isBlastingTime = (seconds) => seconds % 2 === 1;
@@ -22,23 +22,23 @@ function bomberMan(n, grid) {
     }
   };
   const getCurrentPlantedBombs = (plant = false) => {
-    let currentBombs = [];
+    let newBombs = {};
     for (let row = 0; row < grid.length; row++) {
       for (let col = 0; col < grid[row].length; col++) {
         if (isBomb(row, col)) {
-          currentBombs.push([row, col]);
+          newBombs[`${row}-${col}`] = [row, col];
         }
         if (plant) grid[row][col] = "O";
       }
     }
-    return currentBombs;
+    return newBombs;
   };
 
   currentBombs = getCurrentPlantedBombs(true);
 
   let seconds = 3;
   while (seconds <= n) {
-    currentBombs.forEach(detonate);
+    Object.values(currentBombs).forEach(detonate);
     currentBombs = getCurrentPlantedBombs(
       isPlantingTime(seconds + 1) && seconds + 1 <= n
     );
