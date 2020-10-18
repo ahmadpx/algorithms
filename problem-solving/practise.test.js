@@ -29,7 +29,7 @@ function bomberMan(n, grid) {
 
   currentBombs = getCurrentPlantedBombs(true);
 
-  let seconds = 2;
+  let seconds = 3;
   while (seconds <= n) {
     if (isBlastingTime(seconds)) {
       currentBombs.forEach(detonate);
